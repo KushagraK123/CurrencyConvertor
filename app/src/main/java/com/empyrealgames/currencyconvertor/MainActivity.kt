@@ -13,8 +13,8 @@ import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
 import android.widget.ArrayAdapter
-
-
+import androidx.core.view.get
+import java.text.NumberFormat
 
 
 class MainActivity : AppCompatActivity() {
@@ -210,9 +210,7 @@ class MainActivity : AppCompatActivity() {
                         "  \"ZMW\": \"Zambian Kwacha\",\n" +
                         "  \"ZWL\": \"Zimbabwean Dollar\"\n }")
                 init()
-                var inr: Double = rates.getDouble("INR")
-                var usd: Double = rates.getDouble("USD")
-                println("1 USD equals to " + inr/usd + " rupees")
+               
 
                 }catch (e:Exception){
                 e.printStackTrace()
@@ -250,7 +248,7 @@ class MainActivity : AppCompatActivity() {
     fun init(){
         val array: ArrayList<String> = ArrayList()
         if(rate!=null) {
-            var keys = rate!!.keys()
+            val keys = rate!!.keys()
             while (keys.hasNext()){
                 val x = keys.next()
                 if(countryCodes!!.has(x)){
@@ -259,8 +257,6 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
-
-
 
             val spinnerArrayAdapter = ArrayAdapter(
                 applicationContext, android.R.layout.simple_spinner_item,array)
@@ -278,7 +274,17 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    println(country1EditText.text.toString())
+                    try {
+
+
+                        val amount: Double = (country1EditText.text.toString()).toDouble()
+                        val x = rate!!.getDouble(counrty1Spinner.selectedItem.toString())
+                        val y = rate!!.getDouble(counrty2Spinner.selectedItem.toString())
+                        country2Textview.text = (amount * y / x).toString()
+                    }catch (e: Exception){
+                        country2Textview.text = ""
+
+                    }
                 }
                 override fun afterTextChanged(s: Editable?) {
 
