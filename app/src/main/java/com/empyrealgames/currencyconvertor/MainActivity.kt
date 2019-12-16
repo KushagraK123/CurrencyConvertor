@@ -3,6 +3,9 @@ package com.empyrealgames.currencyconvertor
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.io.InputStreamReader
 import java.lang.Exception
@@ -256,5 +259,31 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        country1EditText.addTextChangedListener(
+            object : TextWatcher{
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    println(country1EditText.text.toString())
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+
+            }
+        )
+
     }
+
+
+
 }

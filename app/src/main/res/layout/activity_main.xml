@@ -45,7 +45,6 @@
         android:id="@+id/country2Textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textAllCaps="false"
         android:textColor="#000000"
         android:textSize="24sp"
