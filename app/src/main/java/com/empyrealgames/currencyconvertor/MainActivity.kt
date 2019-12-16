@@ -210,7 +210,7 @@ class MainActivity : AppCompatActivity() {
                         "  \"ZMW\": \"Zambian Kwacha\",\n" +
                         "  \"ZWL\": \"Zimbabwean Dollar\"\n }")
                 init()
-               
+
 
                 }catch (e:Exception){
                 e.printStackTrace()
@@ -280,7 +280,8 @@ class MainActivity : AppCompatActivity() {
                         val amount: Double = (country1EditText.text.toString()).toDouble()
                         val x = rate!!.getDouble(counrty1Spinner.selectedItem.toString())
                         val y = rate!!.getDouble(counrty2Spinner.selectedItem.toString())
-                        country2Textview.text = (amount * y / x).toString()
+                        val ans = String.format("%.3f", (amount * y / x))
+                        country2Textview.text = ans
                     }catch (e: Exception){
                         country2Textview.text = ""
 
