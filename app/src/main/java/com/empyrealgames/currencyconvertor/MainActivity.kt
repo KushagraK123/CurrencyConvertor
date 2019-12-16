@@ -255,11 +255,6 @@ class MainActivity : AppCompatActivity() {
                 println(x + " " + rate!!.get(x) +" "  + countryCodes!!.get(x))
             }
 
-
-
-
-
-
         }
     }
 }
