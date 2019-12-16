@@ -13,8 +13,7 @@ import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
 import android.widget.ArrayAdapter
-import androidx.core.view.get
-import java.text.NumberFormat
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             try {
-                val jsonObject = JSONObject(result)
+                val jsonObject = JSONObject(result!!)
 
                 val rates = JSONObject(jsonObject.get("rates").toString())
                 rate = rates
