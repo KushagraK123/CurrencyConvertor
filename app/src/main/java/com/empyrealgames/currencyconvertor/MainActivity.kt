@@ -12,6 +12,9 @@ import java.lang.Exception
 import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
+import android.widget.ArrayAdapter
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -219,13 +222,11 @@ class MainActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String?): String {
 
-            println("here")
             val result = StringBuilder("")
             val url: URL
             val httpURLConnection: HttpURLConnection
             try {
 
-                println("here1")
                 url = URL(params[0])
                 httpURLConnection = url.openConnection() as HttpURLConnection
                 val inputStream = httpURLConnection.inputStream
@@ -238,47 +239,50 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }catch (e: Exception){
-                println("exception")
                 e.printStackTrace()
             }
 
 
-            println("here2")
-            println(result)
             return result.toString()
         }
 
     }
     fun init(){
+        val array: ArrayList<String> = ArrayList()
         if(rate!=null) {
             var keys = rate!!.keys()
             while (keys.hasNext()){
                 val x = keys.next()
-                if(countryCodes!!.has(x))
-                println(x + " " + rate!!.get(x) +" "  + countryCodes!!.get(x))
+                if(countryCodes!!.has(x)){
+                    println(x + " " + rate!!.get(x) +" "  + countryCodes!!.get(x))
+                    array.add(x)
+
+                }
             }
 
+
+
+            val spinnerArrayAdapter = ArrayAdapter(
+                applicationContext, android.R.layout.simple_spinner_item,array)
+            spinnerArrayAdapter.setDropDownViewResource(
+                android.R.layout
+                    .simple_spinner_dropdown_item
+            )
+            counrty1Spinner.adapter = spinnerArrayAdapter
+            counrty2Spinner.adapter = spinnerArrayAdapter
         }
 
         country1EditText.addTextChangedListener(
             object : TextWatcher{
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                    
-                }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
+                }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     println(country1EditText.text.toString())
                 }
-
                 override fun afterTextChanged(s: Editable?) {
 
                 }
-
             }
         )
 
