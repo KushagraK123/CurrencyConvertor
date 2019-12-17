@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layout"
     tools:context=".MainActivity">
 
     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -35,6 +36,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:foregroundTint="#281053"
         android:inputType="numberDecimal"
         android:textColorHighlight="#03A9F4"
         android:textColorLink="#32304D"
@@ -59,4 +61,29 @@
         app:layout_constraintStart_toStartOf="@+id/country1EditText"
         app:layout_constraintTop_toBottomOf="@+id/country1EditText"
         app:layout_constraintVertical_bias="0.204" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbarTrackVertical="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/counrty2Spinner" />
+
+    <TextView
+        android:id="@+id/loadingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loading Data!"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.241" />
 </androidx.constraintlayout.widget.ConstraintLayout>

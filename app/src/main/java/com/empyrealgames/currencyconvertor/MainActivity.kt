@@ -212,11 +212,13 @@ class MainActivity : AppCompatActivity() {
                         "  \"ZMW\": \"Zambian Kwacha\",\n" +
                         "  \"ZWL\": \"Zimbabwean Dollar\"\n }")
                 init()
-
+                layout.removeView(progressBar)
+                layout.removeView(loadingText)
                 }catch (e:Exception){
                 e.printStackTrace()
             }
         }
+
 
 
         override fun doInBackground(vararg params: String?): String {
@@ -285,7 +287,7 @@ class MainActivity : AppCompatActivity() {
 
 
         counrty1Spinner.onItemSelectedListener = Listener()
-
+        counrty2Spinner.onItemSelectedListener = Listener()
 
     }
 
@@ -302,8 +304,6 @@ class MainActivity : AppCompatActivity() {
 
     fun updateRates(){
         try {
-
-
             val amount: Double = (country1EditText.text.toString()).toDouble()
             val x = rate!!.getDouble(countryKeys!![counrty1Spinner.selectedItemPosition])
             val y = rate!!.getDouble(countryKeys!![counrty2Spinner.selectedItemPosition])
@@ -316,5 +316,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    
 
 }
