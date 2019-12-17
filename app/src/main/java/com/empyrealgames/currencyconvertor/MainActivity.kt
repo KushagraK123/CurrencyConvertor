@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.AdapterView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.io.InputStreamReader
@@ -20,9 +22,13 @@ class MainActivity : AppCompatActivity() {
 
     var rate:JSONObject? = null
     var countryCodes:JSONObject? = null
+    var countryKeys:ArrayList<String>? = null
+    var countryValues:ArrayList<String>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        println("here")
         DownloadData().execute("http://data.fixer.io/api/latest?access_key=778a18d9d45590dfd908cf4338c0ddb3")
     }
 
@@ -31,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             super.onPostExecute(result)
             try {
                 val jsonObject = JSONObject(result!!)
-
                 val rates = JSONObject(jsonObject.get("rates").toString())
                 rate = rates
 
@@ -209,7 +214,7 @@ class MainActivity : AppCompatActivity() {
                         "  \"ZMW\": \"Zambian Kwacha\",\n" +
                         "  \"ZWL\": \"Zimbabwean Dollar\"\n }")
                 init()
-
+                println("here1")
 
                 }catch (e:Exception){
                 e.printStackTrace()
@@ -245,20 +250,21 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun init(){
-        val array: ArrayList<String> = ArrayList()
+        println("here3")
+        countryKeys = ArrayList()
+        countryValues = ArrayList()
         if(rate!=null) {
             val keys = rate!!.keys()
             while (keys.hasNext()){
                 val x = keys.next()
-                if(countryCodes!!.has(x)){
-                    println(x + " " + rate!!.get(x) +" "  + countryCodes!!.get(x))
-                    array.add(x)
-
+                if(countryCodes!!.has(x) ) {
+                    countryKeys!!.add(x)
+                    countryValues!!.add(countryCodes!!.getString(x))
                 }
             }
 
             val spinnerArrayAdapter = ArrayAdapter(
-                applicationContext, android.R.layout.simple_spinner_item,array)
+                applicationContext, android.R.layout.simple_spinner_item, countryValues!!)
             spinnerArrayAdapter.setDropDownViewResource(
                 android.R.layout
                     .simple_spinner_dropdown_item
@@ -273,18 +279,7 @@ class MainActivity : AppCompatActivity() {
 
                 }
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    try {
-
-
-                        val amount: Double = (country1EditText.text.toString()).toDouble()
-                        val x = rate!!.getDouble(counrty1Spinner.selectedItem.toString())
-                        val y = rate!!.getDouble(counrty2Spinner.selectedItem.toString())
-                        val ans = String.format("%.3f", (amount * y / x))
-                        country2Textview.text = ans
-                    }catch (e: Exception){
-                        country2Textview.text = ""
-
-                    }
+                    updateRates()
                 }
                 override fun afterTextChanged(s: Editable?) {
 
@@ -292,6 +287,38 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
+
+        counrty1Spinner.onItemSelectedListener = Listener()
+
+
+
+    }
+
+    inner class Listener : AdapterView.OnItemSelectedListener{
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            updateRates()
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            updateRates()
+        }
+
+    }
+
+    fun updateRates(){
+        try {
+
+
+            val amount: Double = (country1EditText.text.toString()).toDouble()
+            val x = rate!!.getDouble(countryKeys!!.get(counrty1Spinner.selectedItemPosition))
+            val y = rate!!.getDouble(countryKeys!!.get(counrty2Spinner.selectedItemPosition))
+            val ans = String.format("%.3f", (amount * y / x))
+            country2Textview.text = ans
+        }catch (e: Exception){
+            e.printStackTrace()
+            country2Textview.text = ""
+
+        }
     }
 
 
