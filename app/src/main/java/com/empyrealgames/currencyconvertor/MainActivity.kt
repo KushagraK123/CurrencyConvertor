@@ -1,35 +1,33 @@
 package com.empyrealgames.currencyconvertor
 
+
 import android.os.AsyncTask
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import java.io.InputStreamReader
-import java.lang.Exception
-import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
-import android.widget.ArrayAdapter
-
 
 
 class MainActivity : AppCompatActivity() {
 
-    var rate:JSONObject? = null
-    var countryCodes:JSONObject? = null
-    var countryKeys:ArrayList<String>? = null
-    var countryValues:ArrayList<String>? = null
+   private var rate:JSONObject? = null
+   private var countryCodes:JSONObject? = null
+   private var countryKeys:ArrayList<String>? = null
+   private var countryValues:ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        println("here")
         DownloadData().execute("http://data.fixer.io/api/latest?access_key=778a18d9d45590dfd908cf4338c0ddb3")
+
     }
 
      inner class DownloadData: AsyncTask<String, Void , String>(){
@@ -214,7 +212,6 @@ class MainActivity : AppCompatActivity() {
                         "  \"ZMW\": \"Zambian Kwacha\",\n" +
                         "  \"ZWL\": \"Zimbabwean Dollar\"\n }")
                 init()
-                println("here1")
 
                 }catch (e:Exception){
                 e.printStackTrace()
@@ -250,7 +247,6 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun init(){
-        println("here3")
         countryKeys = ArrayList()
         countryValues = ArrayList()
         if(rate!=null) {
@@ -291,7 +287,6 @@ class MainActivity : AppCompatActivity() {
         counrty1Spinner.onItemSelectedListener = Listener()
 
 
-
     }
 
     inner class Listener : AdapterView.OnItemSelectedListener{
@@ -310,8 +305,8 @@ class MainActivity : AppCompatActivity() {
 
 
             val amount: Double = (country1EditText.text.toString()).toDouble()
-            val x = rate!!.getDouble(countryKeys!!.get(counrty1Spinner.selectedItemPosition))
-            val y = rate!!.getDouble(countryKeys!!.get(counrty2Spinner.selectedItemPosition))
+            val x = rate!!.getDouble(countryKeys!![counrty1Spinner.selectedItemPosition])
+            val y = rate!!.getDouble(countryKeys!![counrty2Spinner.selectedItemPosition])
             val ans = String.format("%.3f", (amount * y / x))
             country2Textview.text = ans
         }catch (e: Exception){
@@ -320,7 +315,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
 
 
 }
