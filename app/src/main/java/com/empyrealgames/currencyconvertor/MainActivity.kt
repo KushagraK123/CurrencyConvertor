@@ -1,6 +1,7 @@
 package com.empyrealgames.currencyconvertor
 
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
@@ -328,10 +329,14 @@ class MainActivity : AppCompatActivity() {
         // Handle item selection
         return when (item.itemId) {
             R.id.compareCurrencies -> {
-
+                /*start compare activity*/
+                val intent = Intent(applicationContext, CompareActivity::class.java)
+                startActivity(intent)
                 true
             }
             R.id.exit -> {
+
+                
 
                 true
             }
