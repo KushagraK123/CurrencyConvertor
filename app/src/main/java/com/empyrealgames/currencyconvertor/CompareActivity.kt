@@ -8,7 +8,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_compare.*
-import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class CompareActivity : AppCompatActivity() {
@@ -16,8 +15,10 @@ class CompareActivity : AppCompatActivity() {
     val rate = Global.Rates
     var basePrice:Double = 0.0
     var amount:Double = 0.0
-    var arrayAdapter:ArrayAdapter<String>?=null
-    var listItem : ArrayList<String>? = null
+    var arrayAdapter:CustomArrayAdapter?=null
+    var countries : ArrayList<String>? = null
+    var amounts : ArrayList<String>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compare)
@@ -26,7 +27,7 @@ class CompareActivity : AppCompatActivity() {
 
     }
 
-    fun init(){
+    private fun init(){
         initSpinner()
         initListView()
         initEditText()
@@ -68,26 +69,35 @@ class CompareActivity : AppCompatActivity() {
 
 
     fun initListView(){
-        listItem = ArrayList()
+        countries = ArrayList()
+        amounts = ArrayList()
+
         for(item in rate.countryKeys!!){
-            listItem!!.add(getListItemString(rate.countryCodes!!.getString(item), basePrice, rate.rate!!.getDouble(item), amount))
+
+            countries!!.add(rate.countryCodes!!.getString(item))
+            amounts!!.add(getAmount(basePrice, rate.rate!!.getDouble(item), amount))
         }
-        arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItem!!)
+
+
+        arrayAdapter = CustomArrayAdapter(this, countries!!, amounts!!)
+        println("here1 displaying "  + amounts!!.size + " rows")
         compareCurrenciesListView.adapter = arrayAdapter
+        arrayAdapter!!.notifyDataSetChanged()
+        println("here2")
     }
 
-    fun getListItemString(name:String, basePrice:Double, itemPrice:Double, amount:Double):String{
+    fun getAmount(basePrice:Double, itemPrice:Double, amount:Double):String{
 
-        var ans = ""
+        var ans:String
 
         try {
-            
+
             ans = String.format("%.3f",amount * itemPrice  / basePrice)
 
         }catch (e:Exception){
             ans = ""
         }
-        return String.format("%s %s", name, ans)
+        return ans
     }
 
 
