@@ -5,6 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:background="#1111"
     tools:context=".MainActivity">
 
@@ -48,7 +49,7 @@
         android:id="@+id/calculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="calculate"
+        android:background="@android:color/transparent"
         android:text="Calculate"
         app:layout_constraintBottom_toTopOf="@+id/compareCurrenciesListView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +57,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.72" />
+
+    <TextView
+        android:id="@+id/baseCurrencyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Base Currency"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/compareCurrenciesSpinner"
+        app:layout_constraintEnd_toEndOf="@+id/compareCurrenciesSpinner"
+        app:layout_constraintStart_toStartOf="@+id/compareCurrenciesSpinner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.782" />
+
+    <TextView
+        android:id="@+id/mountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="Amount"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/compareCurrenciesEditText"
+        app:layout_constraintEnd_toEndOf="@+id/compareCurrenciesEditText"
+        app:layout_constraintStart_toStartOf="@+id/compareCurrenciesEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.037" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

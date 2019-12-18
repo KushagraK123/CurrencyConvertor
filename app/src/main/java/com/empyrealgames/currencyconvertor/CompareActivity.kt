@@ -31,6 +31,7 @@ class CompareActivity : AppCompatActivity() {
         initSpinner()
         initListView()
         initEditText()
+        initCalculateButton()
     }
     private fun initEditText(){
         compareCurrenciesEditText.addTextChangedListener(
@@ -111,8 +112,10 @@ class CompareActivity : AppCompatActivity() {
 
     }
 
-    fun calculate(view: View?){
-        initListView()
+    private  fun initCalculateButton(){
+        calculate.setOnClickListener(View.OnClickListener {
+            initListView()
+        })
     }
 
 

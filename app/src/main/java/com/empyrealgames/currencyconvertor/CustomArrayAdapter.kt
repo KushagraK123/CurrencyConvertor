@@ -8,7 +8,7 @@ import android.widget.TextView
 
 
 class CustomArrayAdapter(private val context: Activity, val countries: ArrayList<String>, val amounts:ArrayList<String>)
-: ArrayAdapter<CustomListItem>(context, R.layout.list_item) {
+: ArrayAdapter<String>(context, R.layout.list_item) {
 
     internal class ViewHolder {
         var text1: TextView? = null
