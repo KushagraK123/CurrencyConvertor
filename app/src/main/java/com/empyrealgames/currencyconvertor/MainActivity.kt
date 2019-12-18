@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -330,14 +331,16 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.compareCurrencies -> {
                 /*start compare activity*/
-                val intent = Intent(applicationContext, CompareActivity::class.java)
-                startActivity(intent)
+                if(rate.countryKeys == null){
+                    Toast.makeText(applicationContext, "Please Connect to Internet", Toast.LENGTH_LONG).show()
+                }else {
+                    val intent = Intent(applicationContext, CompareActivity::class.java)
+                    startActivity(intent)
+                }
                 true
             }
             R.id.exit -> {
-
-
-
+                super.finishAndRemoveTask()
                 true
             }
             else -> super.onOptionsItemSelected(item)
