@@ -336,14 +336,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.exit -> {
 
-                
+
 
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-
 
 }
