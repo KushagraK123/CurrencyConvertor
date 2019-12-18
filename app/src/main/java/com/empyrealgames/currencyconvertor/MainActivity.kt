@@ -5,6 +5,9 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,10 +21,7 @@ import java.net.URL
 
 class MainActivity : AppCompatActivity() {
 
-   private var rate:JSONObject? = null
-   private var countryCodes:JSONObject? = null
-   private var countryKeys:ArrayList<String>? = null
-   private var countryValues:ArrayList<String>? = null
+    val rate = Global.Rates
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +30,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-     inner class DownloadData: AsyncTask<String, Void , String>(){
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.main_menu,menu)
+        return true
+    }
+
+
+    inner class DownloadData: AsyncTask<String, Void , String>(){
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
             try {
                 val jsonObject = JSONObject(result!!)
                 val rates = JSONObject(jsonObject.get("rates").toString())
-                rate = rates
+                rate.rate = rates
 
 
-                 countryCodes = JSONObject("{\n" +
+                 rate.countryCodes = JSONObject("{\n" +
                         "  \"AED\": \"United Arab Emirates Dirham\",\n" +
                         "  \"AFN\": \"Afghan Afghani\",\n" +
                         "  \"ALL\": \"Albanian Lek\",\n" +
@@ -249,20 +256,20 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun init(){
-        countryKeys = ArrayList()
-        countryValues = ArrayList()
-        if(rate!=null) {
-            val keys = rate!!.keys()
+        rate.countryKeys = ArrayList()
+        rate.countryValues = ArrayList()
+        if(rate.rate!=null) {
+            val keys = rate.rate!!.keys()
             while (keys.hasNext()){
                 val x = keys.next()
-                if(countryCodes!!.has(x) ) {
-                    countryKeys!!.add(x)
-                    countryValues!!.add(countryCodes!!.getString(x))
+                if(rate.countryCodes!!.has(x) ) {
+                    rate.countryKeys!!.add(x)
+                    rate.countryValues!!.add(rate.countryCodes!!.getString(x))
                 }
             }
 
             val spinnerArrayAdapter = ArrayAdapter(
-                applicationContext, android.R.layout.simple_spinner_item, countryValues!!)
+                applicationContext, android.R.layout.simple_spinner_item, rate.countryValues!!)
             spinnerArrayAdapter.setDropDownViewResource(
                 android.R.layout
                     .simple_spinner_dropdown_item
@@ -305,8 +312,8 @@ class MainActivity : AppCompatActivity() {
     fun updateRates(){
         try {
             val amount: Double = (country1EditText.text.toString()).toDouble()
-            val x = rate!!.getDouble(countryKeys!![counrty1Spinner.selectedItemPosition])
-            val y = rate!!.getDouble(countryKeys!![counrty2Spinner.selectedItemPosition])
+            val x = rate.rate!!.getDouble(rate.countryKeys!![counrty1Spinner.selectedItemPosition])
+            val y = rate.rate!!.getDouble(rate.countryKeys!![counrty2Spinner.selectedItemPosition])
             val ans = String.format("%.3f", (amount * y / x))
             country2Textview.text = ans
         }catch (e: Exception){
@@ -316,6 +323,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    
+/*after menu items click*/
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.compareCurrencies -> {
+
+                true
+            }
+            R.id.exit -> {
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 
 }
