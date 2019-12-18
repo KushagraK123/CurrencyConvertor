@@ -15,9 +15,9 @@ class CompareActivity : AppCompatActivity() {
     val rate = Global.Rates
     var basePrice:Double = 0.0
     var amount:Double = 0.0
-    var arrayAdapter:CustomArrayAdapter?=null
-    var countries : ArrayList<String>? = null
-    var amounts : ArrayList<String>? = null
+   private var arrayAdapter:CustomArrayAdapter?=null
+   private var countries : ArrayList<String>? = null
+   private var amounts : ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +32,7 @@ class CompareActivity : AppCompatActivity() {
         initListView()
         initEditText()
     }
-    fun initEditText(){
+    private fun initEditText(){
         compareCurrenciesEditText.addTextChangedListener(
             object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -54,7 +54,7 @@ class CompareActivity : AppCompatActivity() {
         )
 
     }
-    fun initSpinner(){
+    private fun initSpinner(){
         val spinnerArrayAdapter = ArrayAdapter(
             applicationContext, android.R.layout.simple_spinner_item, rate.countryValues!!)
         spinnerArrayAdapter.setDropDownViewResource(
@@ -68,7 +68,7 @@ class CompareActivity : AppCompatActivity() {
     }
 
 
-    fun initListView(){
+    private fun initListView(){
         countries = ArrayList()
         amounts = ArrayList()
 
@@ -80,13 +80,12 @@ class CompareActivity : AppCompatActivity() {
 
 
         arrayAdapter = CustomArrayAdapter(this, countries!!, amounts!!)
-        println("here1 displaying "  + amounts!!.size + " rows")
         compareCurrenciesListView.adapter = arrayAdapter
         arrayAdapter!!.notifyDataSetChanged()
-        println("here2")
+
     }
 
-    fun getAmount(basePrice:Double, itemPrice:Double, amount:Double):String{
+    private fun getAmount(basePrice:Double, itemPrice:Double, amount:Double):String{
 
         var ans:String
 
@@ -110,6 +109,10 @@ class CompareActivity : AppCompatActivity() {
             initListView()
         }
 
+    }
+
+    fun calculate(view: View?){
+        initListView()
     }
 
 
