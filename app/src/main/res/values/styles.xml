@@ -8,9 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="SortOverFlowIcon" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@android:drawable/ic_menu_sort_by_size</item>
+    </style>
+
+    <style name="AppTheme.CompareActivity" parent="AppTheme">
+        <item name="android:actionOverflowButtonStyle">@style/SortOverFlowIcon</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

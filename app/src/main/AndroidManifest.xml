@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,14 +14,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".CompareActivity"
             android:label="@string/title_activity_compare"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.CompareActivity"
             android:windowSoftInputMode="adjustResize|adjustPan"
             android:hardwareAccelerated="false"
             >
-
+            <intent-filter><action android:name="android.intent.action.VIEW" /></intent-filter>
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

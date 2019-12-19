@@ -2,5 +2,8 @@
     <string name="app_name">Currency Convertor</string>
     <string name="exit">Exit</string>
     <string name="compare_all_currencies">Compare all Currencies</string>
-    <string name="title_activity_compare">CompareActivity</string>
+    <string name="title_activity_compare">Compare Currencies</string>
+    <string name="sort_alphabetically">Sort Alphabetically</string>
+    <string name="sort_ascending">Sort Ascending</string>
+    <string name="sort_descending">Sort Descending</string>
 </resources>

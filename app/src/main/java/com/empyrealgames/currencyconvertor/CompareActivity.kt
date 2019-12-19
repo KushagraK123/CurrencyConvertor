@@ -1,11 +1,18 @@
 package com.empyrealgames.currencyconvertor
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_compare.*
 import java.lang.Exception
@@ -22,6 +29,9 @@ class CompareActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_compare)
+
+
+
 
         init()
 
@@ -67,7 +77,6 @@ class CompareActivity : AppCompatActivity() {
         compareCurrenciesSpinner.onItemSelectedListener = Listener()
 
     }
-
 
     private fun initListView(){
         countries = ArrayList()
@@ -118,5 +127,26 @@ class CompareActivity : AppCompatActivity() {
         })
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.sort_menu,menu)
+        return true
+    }
+
+
+    /*after menu items click*/
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.sort_ascending -> {
+                true
+            }
+            R.id.sort_descending -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 }
